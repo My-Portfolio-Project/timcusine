@@ -1,11 +1,20 @@
 'use client'
+import dynamic
+ from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import DishesHeader from "./Header";
+
 import { useDishStore } from "@/components/stores/dishStore";
 import { DishesProps } from "@/lib/types/dishes.types";
 import { DishProps } from "@/components/interface/dish.interface";
 import { Loader2, Pen, PenBox, Star, Stars, Trash2, Trash2Icon, X } from "lucide-react";
 import Pagination from "@/components/reuseabale/Pagination";
+
+
+const DishesHeader = dynamic(
+  () => import('@/components/dashboard/dishes/Header'),
+  {ssr: false}
+)
+
 
 const DishesTable = () => {
   const orders = [
