@@ -1,3 +1,4 @@
+'use client'
 import { Coffee } from 'lucide-react'
 import React, { useEffect } from 'react'
 

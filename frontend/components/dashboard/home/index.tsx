@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import Summary from './Summary'
 import Table from './Table'

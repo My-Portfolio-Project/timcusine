@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import ClientSummary from './Summary'
 import ClientTable from './Table'

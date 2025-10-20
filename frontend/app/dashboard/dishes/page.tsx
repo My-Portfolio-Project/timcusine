@@ -1,3 +1,4 @@
+'use client'
 import Sidebar from '@/components/common/Sidebar'
 import DishesIndex from '@/components/dashboard/dishes'
 import React from 'react'

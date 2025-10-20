@@ -1,3 +1,4 @@
+'use client'
 import HomeIndex from "@/components/landing-page/home";
 import Image from "next/image";
 

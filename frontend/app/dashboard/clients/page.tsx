@@ -1,3 +1,5 @@
+'use client'
+
 import Sidebar from '@/components/common/Sidebar'
 import ClientIndex from '@/components/dashboard/clients'
 import React from 'react'
