@@ -12,7 +12,14 @@ import { DishProps } from '@/components/interface/dish.interface';
 import { useAuthStore } from '@/components/stores/authStore';
 import { API_URL } from '@/components/hooks/Api';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE!);
+const stripePromise= loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE!
+);
+
+interface StripeWithCheckout {
+  redirectToCheckout: (options: { sessionId: string }) => Promise<{ error?: { message: string } }>;
+}
+
 
 interface Errors {
   country?: string;
@@ -109,14 +116,16 @@ const handleCheckout = async () => {
     if (payment === 'STRIPE') {
       console.log('💳 Redirecting to Stripe checkout...');
 
-        const stripe = (await stripePromise) as Stripe | null;
+const stripe = (await stripePromise) as unknown as StripeWithCheckout;
+
   if (!stripe) {
     toast.error('Stripe failed to initialize');
     return;
   }
 
-      const { sessionId } = data;
-      const result = await stripe.redirectToCheckout({ sessionId });
+const { sessionId } = data;
+const result = await stripe.redirectToCheckout({ sessionId });
+
 
       if (result.error) {
         console.error('Stripe redirect error:', result.error.message);
