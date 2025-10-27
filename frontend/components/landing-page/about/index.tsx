@@ -19,7 +19,7 @@ const AboutIndex = () => {
             
                 <div className=" w-full">
                   <ReuseableHero
-                  title='About Us'
+                  title='About'
                   subtitle=' Driven by passion and tradition, we blend creativity and
                    flavor to create memorable dining experiences that bring people together'
              imageUrl='/landing-page/About Image.png'

@@ -16,7 +16,7 @@ const ContactIndex = () => {
             
                 <div className=" w-full ">
                   <ReuseableHero
-                  title='Contact Us'
+                  title='Contact'
                   subtitle=' Contact us today to start a conversation —
              our team is ready to grow meaningful solutions with you.'
              imageUrl='/landing-page/Contact.png'

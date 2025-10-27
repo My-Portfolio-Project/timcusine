@@ -6,7 +6,7 @@ import FeaturedFood from './FeaturedFood'
 
 const Hero = () => {
   return (
-    <div className='min-h-[80vh]  2xl:min-h-[40vh] w-full  flex flex-col items-center '>
+    <div className='md:min-h-[80vh]  2xl:min-h-[40vh] w-full  flex flex-col items-center '>
 
         <div className='flex flex-col-reverse md:flex-row justify-center w-full  p-2
         md:p-5 md:gap-10'>

@@ -49,7 +49,8 @@ const Marquee: React.FC<MarqueeProps> = ({ direction = 'left', speed = 30 }) => 
 
 const SecondHero: React.FC = () => {
   return (
-    <div className="relative h-screen w-full bg-black text-white overflow-hidden">
+    <div className="relative md:h-screen h-[70vh] w-full
+     text-white overflow-hidden">
 
       {/* === 3 Animated Marquees === */}
       <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center">
