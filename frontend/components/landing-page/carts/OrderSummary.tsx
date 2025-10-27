@@ -11,6 +11,7 @@ import { useCartStore } from '@/components/stores/cartStore';
 import { DishProps } from '@/components/interface/dish.interface';
 import { useAuthStore } from '@/components/stores/authStore';
 import { API_URL } from '@/components/hooks/Api';
+import { useRouter } from 'next/navigation';
 
 const stripePromise= loadStripe(
   process.env.NEXT_PUBLIC_STRIPE!
@@ -30,6 +31,7 @@ interface Errors {
 }
 
 const OrderSummary = () => {
+  const router = useRouter()
 
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
@@ -75,27 +77,35 @@ const handleCheckout = async () => {
 
   try {
     const simplifiedProducts = carts.map((item) => ({
-      id: item.id,
+      id: item.dish.id,
       name: item.dish.name,
       image: item.dish.image,
+       desc: item.dish.desc,
       price: item.dish.price,
       quantity: item.quantity ?? 1,
     }));
+    console.log('Dish property:', simplifiedProducts)
+
+
 
     const payload = {
-      email: user.email,
-      paymentMethod: payment, 
-      products: simplifiedProducts,
-      shippingAddress: {
-        street,
-        country: Country.getCountryByCode(country)?.name || country,
-        state: State.getStateByCodeAndCountry(state, country)?.name || state,
-        city,
-      },
+      // email: user.email,
+      // paymentMethod: payment, 
+      dish: simplifiedProducts,
+      street,
+      country: Country.getCountryByCode(country)?.name || country,
+      state: State.getStateByCodeAndCountry(state, country)?.name || state,
+     city,
+     payment: 'STRIPE'
+      
     };
 
+           console.log('Detials to be sent:', payload)
+
+
+
  
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/create-checkout`, {
+    const response = await fetch(`${API_URL}/order/checkout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -123,21 +133,30 @@ const stripe = (await stripePromise) as unknown as StripeWithCheckout;
     return;
   }
 
-const { sessionId } = data;
-const result = await stripe.redirectToCheckout({ sessionId });
 
 
-      if (result.error) {
-        console.error('Stripe redirect error:', result.error.message);
-        toast.error(result.error.message || 'Stripe checkout failed');
-      }
+const { url } = data;
+
+if (url) {
+  console.log('💳 Redirecting to Stripe checkout page...');
+  setTimeout(() =>  {
+  window.location.href = url; 
+  }, 10000)
+
+} else {
+  toast.error('Stripe checkout URL not found');
+}
+
+
+
+      // router.push('/carts/checkout-success')
     } else if (payment === 'PAYSTACK') {
       console.log('💰 Redirecting to Paystack checkout...');
       if (!data.checkoutUrl) {
         toast.error('Paystack checkout URL not found');
         return;
       }
-      window.location.href = data.checkoutUrl; // redirect to Paystack
+      window.location.href = data.checkoutUrl; 
     }
   } catch (err: any) {
     console.error('⚠️ Checkout error:', err);
@@ -150,7 +169,7 @@ const result = await stripe.redirectToCheckout({ sessionId });
 
   return (
     <motion.div
-      className="space-y-4 rounded-lg border bg-black p-4 shadow-sm sm:p-6 w-full max-w-[500px]"
+      className="space-y-4 rounded-lg border bg-black p-4 shadow-sm sm:p-6 w-full "
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -181,13 +200,14 @@ const result = await stripe.redirectToCheckout({ sessionId });
           id='country'
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none bg-transparent text-black ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none bg-black text-white ${
               errors.country ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-[#a16d57]'
             }`}
           >
             <option value="" className=''>Select country</option>
             {Country.getAllCountries().map((c) => (
-              <option key={c.isoCode} value={c.isoCode}>
+              <option key={c.isoCode} value={c.isoCode}
+                       className="text-white" >
                 {c.name}
               </option>
             ))}
@@ -203,13 +223,14 @@ const result = await stripe.redirectToCheckout({ sessionId });
             id='state'
               value={state}
               onChange={(e) => setState(e.target.value)}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none bg-transparent text-black ${
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none bg-black text-white ${
                 errors.state ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-[#a16d57]'
               }`}
             >
               <option value="">Select state</option>
               {State.getStatesOfCountry(country).map((s) => (
-                <option key={s.isoCode} value={s.isoCode}>
+                <option key={s.isoCode} value={s.isoCode}
+                         className="text-white" >
                   {s.name}
                 </option>
               ))}
@@ -226,13 +247,15 @@ const result = await stripe.redirectToCheckout({ sessionId });
             id='city'
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none bg-transparent text-white ${
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none bg-black text-white ${
                 errors.city ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-[#a16d57]'
               }`}
             >
-              <option value="">Select city</option>
+              <option value=""
+              className="text-white">Select city</option>
               {City.getCitiesOfState(country, state).map((c) => (
-                <option key={c.name} value={c.name}>
+                <option key={c.name} value={c.name}
+                className="text-white" >
                   {c.name}
                 </option>
               ))}
@@ -265,24 +288,31 @@ const result = await stripe.redirectToCheckout({ sessionId });
         <div className="space-y-2">
           <dl className="flex items-center justify-between gap-4">
             <dt className="text-base font-normal text-white">Original Price</dt>
-            <dd className="text-base font-medium text-white">${formattedSubtotal}</dd>
+<dd className="text-base font-medium text-white">
+  {payment === 'PAYSTACK' ? `₦${formattedSubtotal}` : `$${formattedSubtotal}`}
+</dd>
           </dl>
 
           {savings > 0 && (
             <dl className="flex items-center justify-between gap-4">
               <dt className="text-base font-normal text-white">Savings</dt>
-              <dd className="text-base font-medium text-white">-${formattedSavings}</dd>
+              <dd className="text-base font-medium text-white">  ₦{formattedSavings}</dd>
             </dl>
           )}
 
           <dl className="flex items-center justify-between gap-4 border-t border-gray-600 pt-2">
             <dt className="text-base font-bold text-white">Total</dt>
-            <dd className="text-base font-bold text-white">${formattedTotal}</dd>
+            <dd className="text-base font-bold text-white">
+        
+                 {payment === 'PAYSTACK' ? `₦${formattedTotal}` : `$${formattedTotal}`}
+               
+                </dd>
           </dl>
         </div>
 
         <motion.button
-          className="flex w-full items-center justify-center border border-[#545454] px-5 py-2.5 text-sm font-medium text-black focus:outline-none bg-transparent hover:text-black hover:bg-white"
+          className="flex w-full items-center justify-center border border-[#545454] cursor-pointer
+           px-5 py-2.5 text-sm font-medium text-white focus:outline-none bg-transparent hover:text-black hover:bg-white"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleCheckout}

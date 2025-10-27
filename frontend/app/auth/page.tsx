@@ -1,6 +1,8 @@
 'use client'
+import AnimateTextWord from '@/components/animations/AnimatedText'
 import Login from '@/components/auth/Login'
 import Signup from '@/components/auth/Signup'
+import ProtectedRoute from '@/components/protection/Protected'
 // import Footer from '@/components/common/Footer'
 // import Navbar from '@/components/common/Navbar'
 import React, { useState } from 'react'
@@ -9,6 +11,8 @@ const AuthPage = () => {
 const [ selected, setSelected ] = useState<string | null>("login")   
 
   return (
+    <ProtectedRoute>
+      
     <div className='flex flex-col md:flex-row bg-black  gap-5 overflow-hidden'>
         {/* <Navbar  /> */}
 
@@ -23,11 +27,15 @@ const [ selected, setSelected ] = useState<string | null>("login")
     <div className="absolute inset-0 z-20 flex flex-col justify-end items-start p-8 text-white">
       <div className="max-w-md space-y-4 mb-10 animate-fade-in">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+                           <AnimateTextWord type="largeText" align="start"> 
           Welcome Back 👋
+            </AnimateTextWord>
         </h1>
-        <p className="text-base md:text-lg text-gray-200">
+        <h1 className="text-base md:text-lg text-gray-200">
+                       <AnimateTextWord type="smallText" align="start">
           Sign in to continue your shopping experience — your favorite products are waiting.
-        </p>
+                 </AnimateTextWord>
+        </h1>
       </div>
     </div>
   )}
@@ -37,11 +45,17 @@ const [ selected, setSelected ] = useState<string | null>("login")
     <div className="absolute inset-0 z-20 flex flex-col justify-end items-start p-8 text-white">
       <div className="max-w-md space-y-4 mb-10 animate-fade-in">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+                 <AnimateTextWord type="largeText" align="start"> 
+      
           Create Your Account ✨
+                      
+                 </AnimateTextWord>
         </h1>
-        <p className="text-base md:text-lg text-gray-200">
+        <h1 className="text-base md:text-lg text-gray-200">
+             <AnimateTextWord type="smallText" align="start">
           Join our community and start exploring the best deals crafted just for you.
-        </p>
+          </AnimateTextWord>
+        </h1>
       </div>
     </div>
   )}
@@ -61,11 +75,11 @@ const [ selected, setSelected ] = useState<string | null>("login")
 
 
 {/* form */}
-        <div className='h-screen flex items-center justify-center overflow-y-scroll scrollbar
+        <div className='md:h-screen flex items-center justify-center overflow-y-scroll scrollbar bg-black
         w-full  p-3 md:p-5 '>
 
-            <div className=' rounded-lg max-w-[500px] gap-3 flex flex-col items-center justify-center
-              w-full min-h-screen pt-20'>
+            <div className=' rounded-lg max-w-[500px] gap-3 flex flex-col items-center justify-center  bg-black
+              w-full md:min-h-screen pt-20'>
 
          
                 <div className='flex w-full bg-tranparent p-[1px] rounded-lg   border-[#545454]'>
@@ -86,11 +100,11 @@ const [ selected, setSelected ] = useState<string | null>("login")
                 </div>
 
                 { selected === "login" ?  
-                <div className="w-full ">
+                <div className="w-full bg-black h-full">
                     <Login  />
                 </div>
                 :
-                <div className='w-full  md:mt-2 '>
+                <div className='w-full bg-black h-full md:mt-2 '>
                 <Signup  />
                 </div>
                 }
@@ -102,6 +116,7 @@ const [ selected, setSelected ] = useState<string | null>("login")
         {/* <Footer  /> */}
       
     </div>
+    </ProtectedRoute>
   )
 }
 

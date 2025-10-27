@@ -20,14 +20,14 @@ const Heading = ({title, desc}: Props) => {
             className='max-w-[50px] w-full h-1 rounded-sm' />
 
             <h1 className='text-[#BFBFBF] font-semibold text-4xl forum'>
-                <AnimatedText>
+                <AnimatedText  type='largeText'>
                     {title}
                      </AnimatedText></h1>
 
         </div>
 
         <h1 className='text-white font-semibold text-4xl forum'>
-                          <AnimatedText>
+                          <AnimatedText type='smallText'>
           {desc}
                           </AnimatedText>
                           </h1>

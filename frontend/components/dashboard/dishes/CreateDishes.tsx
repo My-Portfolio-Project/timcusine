@@ -89,7 +89,6 @@ const handleSubmit = async (e: React.FormEvent) => {
   return (
     <div className="w-full bg-[#1C2534] p-2 md:p-5 rounded-xl shadow-md
      border border-gray-700">
-      <h2 className="text-xl font-semibold text-white mb-4">Create New Dish</h2>
 
       {/* message  */}
 
@@ -110,7 +109,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
 
-<div className='flex flexcol md:flex-row w-full'>
+<div className='flex flex-col gap-4 md:flex-row w-full'>
 
 
 
@@ -270,7 +269,8 @@ const handleSubmit = async (e: React.FormEvent) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 bg-[#6159e7] hover:bg-[#4e49c6] rounded-lg text-white font-medium flex items-center justify-center transition disabled:opacity-50"
+            className="w-full py-2 bg-[#6159e7] hover:bg-[#4e49c6] rounded-lg text-white
+             font-medium flex items-center justify-center transition disabled:opacity-50"
           >
             {loading ? (
               <>

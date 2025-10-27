@@ -35,25 +35,20 @@ const Hero = () => {
     Serving delicious homemade-style 
     meals for your loved ones.</p>
 
-                <div className='flex flex-row items-center gap-2'>
+     
+
                     <Link  style={{
                         background: "var(--secondary-color)"
                     }}
                     href="#"
-                    className='px-4 py-2 flex items-center gap-1 rounded-lg'
+                    className='px-4 py-2 flex items-center justify-center gap-1 rounded-lg bg-white h-10 w-[151px]'
                     >
- <h1 className='text-white text-base'>View Menu</h1>
+         <h1 className='text-white text-base'>Get Started</h1>
+
  <MoveUpRight  size={14} color='white' />
                     </Link>
 
-                         <Link  
-                    href="#"
-                    className='px-4 py-2 flex items-center gap-1 rounded-lg border border-white'
-                    >
- <h1 className='text-white text-base'>Reserve a Table</h1>
-
-                    </Link>
-                </div>
+        
 
             </div>
 

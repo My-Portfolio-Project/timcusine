@@ -13,6 +13,7 @@ import { useCartStore } from '@/components/stores/cartStore'
 import { useAuthStore } from '@/components/stores/authStore'
 import { DishProps } from '@/components/interface/dish.interface'
 import { CartProps } from '@/components/interface/cart.interface'
+import TopNavbar from '@/components/common/TopNavbar'
 
 
 const CartIndex = () => {
@@ -33,6 +34,7 @@ useEffect(() => {
 
   return (
     <div className='bg-black w-full'>
+      <TopNavbar />
       <Navbar />
 
       <div className='mx-auto max-w-screen-xl px-4 2xl:px-0 py-8 md:py-16 '>
@@ -47,7 +49,7 @@ useEffect(() => {
             {carts.length === 0 ? (
               <EmptyCartUI />
             ) : (
-              <div className='space-y-6'>
+              <div className='space-y-6 lg:max-w-760%] w-full'>
                 {carts.map((item: CartProps) => (
                   <CartItem key={item.id} item={item} />
                 ))}
@@ -56,7 +58,7 @@ useEffect(() => {
           </motion.div>
 
           <motion.div
-            className='mx-auto mt-6 max-w-[30%] flex-1 space-y-6 lg:mt-0 w-full'
+            className='mx-auto mt-6 lg:max-w-[30%] flex-1 space-y-6 lg:mt-0 w-full'
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}

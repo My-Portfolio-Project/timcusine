@@ -7,6 +7,7 @@ import { UserProps } from "../interface/user.interface";
 
 interface UserState {
   loading: boolean;
+  totalPage: number;
   message: string;
   users: UserProps[];
   user: UserProps | null;
@@ -21,7 +22,7 @@ interface UserState {
 
   userProfile: () => Promise<{ success: boolean; message: string }>;
 
-  fetchAllUsers: () => Promise<{ success: boolean; users?: UserProps[] }>;
+  fetchAllUsers: (id: string, page?: number , limit?: number) => Promise<{ success: boolean; users?: UserProps[] }>;
 
   fetchSingleUser: (id: string) => Promise<{ success: boolean; user?: UserProps }>;
 
@@ -37,6 +38,7 @@ export const useUserStore = create<UserState>((set) => ({
   loading: false,
   message: "",
   users: [],
+  totalPage: 1,
   user: null,
 
   // CREATE USER
@@ -105,32 +107,37 @@ export const useUserStore = create<UserState>((set) => ({
     }
   },
 
-  // FETCH ALL USERS
-  fetchAllUsers: async () => {
-    set({ loading: true });
-    const token = localStorage.getItem("token");
+ fetchAllUsers: async (id, page = 1, limit = 10) => {
+  set({ loading: true });
+  const token = localStorage.getItem("token");
 
-    try {
-      const response = await fetch(`${API_URL}/user/all`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+  try {
+    const response = await fetch(`${API_URL}/user/all?page=${page}&limit=${limit}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-      const data = await response.json();
+    const data = await response.json();
+    // console.log("User data:", data);
 
-      if (response.ok) {
-        set({ users: data, loading: false });
-        return { success: true, users: data };
-      } else {
-        set({ loading: false, message: data?.message });
-        return { success: false };
-      }
-    } catch (error: any) {
-      console.error("Fetch all users error:", error);
-      set({ loading: false, message: error?.message });
-      return { success: false };
+    if (!response.ok) {
+      throw new Error(data?.message || "Failed to fetch users");
     }
-  },
+
+    set({
+      loading: false,
+      users: Array.isArray(data?.users) ? data.users : [],
+      totalPage: data?.totalPage ?? 1,
+    });
+
+    return { success: true, users: data.users };
+  } catch (error: any) {
+    console.error("Fetch all users error:", error);
+    set({ loading: false, users: [], message: error?.message });
+    return { success: false };
+  }
+},
+
 
   // FETCH SINGLE USER
   fetchSingleUser: async (id) => {
@@ -216,4 +223,6 @@ export const useUserStore = create<UserState>((set) => ({
       return { success: false, message: error?.message };
     }
   },
+
+
 }));

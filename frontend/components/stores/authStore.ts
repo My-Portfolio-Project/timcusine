@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { UserProps } from "../interface/user.interface";
 import { API_URL } from "../hooks/Api";
 
+
 interface AuthState {
   user: UserProps | null; 
   setUser: (user: UserProps | null) => void;
@@ -12,9 +13,13 @@ interface AuthState {
   login: (email: string, password: string) => Promise<any>;
   verifyOtp: (email: string, token: string) => Promise<any>;
   requestOtp: (email: string) => Promise<any>;
+   forgotPassword: (email: string) => Promise<any>;
   clearMessage: () => void; 
+  logout: () => void;
   // checkingAuth: () => void;
 }
+
+ 
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
@@ -191,6 +196,49 @@ requestOtp: async (email: string) => {
   }
 },
 
+forgotPassword: async (email: string) => {
+  set({ loading: true, message: "" });
+
+  const tokens  = localStorage.getItem("token")
+  // console.log('VErify-token', tokens)
+
+  try {
+    const response = await fetch(`${API_URL}/auth/forgot-password`, {
+      method: "POST",
+      headers: { 
+          "Content-Type": "application/json",   
+          // "Authorization": `Bearer ${tokens}`
+        },
+      body: JSON.stringify({ email}),
+    });
+
+    const data = await response.json();
+  
+    if (response.ok) {
+      set({
+        user: data.user,
+        message: data?.message,
+        loading: false,
+        token: data?.token 
+      });
+      localStorage.setItem('token', data?.token)
+      return { success: true, message: data?.message };
+    } else {
+      set({
+        message: data?.message || data?.response?.message || "Login failed",
+        loading: false,
+      });
+      return { success: false, message: data?.message || data?.response?.message };
+    }
+  } catch (error) {
+    set({
+      message: "Network error. Please try again.",
+      loading: false,
+    });
+    return { success: false, message: "Network error. Please try again." };
+  }
+},
+
 // checkingAuth:() => {
 
 //   if(!user) {
@@ -202,6 +250,11 @@ requestOtp: async (email: string) => {
 
 
     clearMessage: () => set({ message: "" }),
+    logout: () => {
+      localStorage.removeItem('token')
+      set({user: null, loading:false})
+      // router.push('/auth')
+    }
 
 }));
 

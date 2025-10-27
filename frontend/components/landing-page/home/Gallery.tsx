@@ -1,4 +1,5 @@
 'use client'
+import AnimateTextWord from '@/components/animations/AnimatedText'
 import Heading from '@/components/reuseabale/Heading'
 import React from 'react'
 
@@ -13,11 +14,23 @@ const heroData = [
 
 const Gallery = () => {
   return (
-    <div className="min-h-[500px] w-full py-20 bg-black flex 
+    <div className="min-h-[500px] w-full py-20 bg-black flex  px-4 md:px-8
     flex-col gap-10 m:px-12">
+
       {/* Heading */}
-      <div className="md:max-w-[65%] mx-auto text-center items-center justify-center">
-        <Heading title="Our Gallery" desc="EXPLORE THE FOOD & AMBIENCE" />
+      <div className="w-full">
+   <h1 className="md:text-4xl text-[28px] font-bold text-center text-white hidden md:block">
+          <AnimateTextWord type="smallText" align="start">
+       Photo Gallery
+          </AnimateTextWord>
+        </h1>
+
+           <h1 className="md:text-4xl text-[28px] font-bold text-center text-white md:hidden">
+          <AnimateTextWord type="smallText" align="center">
+       Photo Gallery
+          </AnimateTextWord>
+        </h1>
+
       </div>
 
       {/* Gallery Grid */}

@@ -44,6 +44,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 if (result.success && result.user) {
   const user = result.user;
+  console.log('Login details:', user)
 
   if (!user.isVerified) {
     router.push("/auth/verification");
@@ -101,7 +102,7 @@ if (result.success && result.user) {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={`w-full px-3 py-2 rounded-md focus:outline-none
+            className={`w-full px-3 py-2  focus:outline-none text-white
               border   border-[#545454] ${
               errors.email
                 ? "border-red-500 focus:ring-red-400"
@@ -127,8 +128,8 @@ if (result.success && result.user) {
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-       className={`w-full  py-2 rounded-md focus:outline-none text-black focus:bg-white 
-              border   border-[#545454] ${
+       className={`w-full  py-2  focus:outline-none   text-white
+               ${
               errors.password
                 ? "border-red-500 focus:ring-red-400"
                 : "border-gray-300 focus:ring-[#a16d57]"
@@ -149,7 +150,7 @@ if (result.success && result.user) {
         {/* Forgot Password */}
         <div className="flex justify-end mb-4">
           <Link
-            href="/forgot-password"
+            href="/auth/forgot-password"
             className="text-sm text-white font-bold hover:underline"
           >
             Forgot Password?

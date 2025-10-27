@@ -77,7 +77,7 @@ const router = useRouter()
     router.push("/dashboard") } else {
           router.push("/auth/verification")
     };
-  }, 2500);
+  }, 1500);
 
     }
 
@@ -92,7 +92,7 @@ const router = useRouter()
   };
 
   return (
-    <div className="w-full flex items-center justify-center  min-h-[30vh] bg-transparent
+    <div className="w-full flex items-center justify-center  min-h-[40vh] bg-transparent
     shadow-md rounded-lg   border-[#545454] border">
 
       <form
@@ -128,7 +128,7 @@ const router = useRouter()
             type="text"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none text-white ${
               errors.email
                 ? "border-red-500 focus:ring-red-400"
                 : "border-gray-300 focus:ring-[#a16d57]"
@@ -149,7 +149,7 @@ const router = useRouter()
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none text-white ${
               errors.email
                 ? "border-red-500 focus:ring-red-400"
                 : "border-gray-300 focus:ring-[#a16d57]"
@@ -172,7 +172,7 @@ const router = useRouter()
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none pr-10 ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none pr-10 text-white ${
               errors.password
                 ? "border-red-500 focus:ring-red-400"
                 : "border-gray-300 focus:ring-[#a16d57]"
@@ -200,7 +200,7 @@ const router = useRouter()
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none pr-10 ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none pr-10 text-white ${
               errors.confirmPassword
                 ? "border-red-500 focus:ring-red-400"
                 : "border-gray-300 focus:ring-[#a16d57]"

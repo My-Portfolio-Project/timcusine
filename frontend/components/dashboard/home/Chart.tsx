@@ -1,7 +1,7 @@
 import { ChartArea } from 'lucide-react'
 import React from 'react'
 import TransactionChart from './components/Transactions'
-import Activity from './components/Activity'
+// import Activity from './components/Activity'
 
 const Chart = () => {
   return (
@@ -10,15 +10,15 @@ const Chart = () => {
         <div style={{
             //  background: "var(--background)"
         }}
-         className='md:w-[70%] w-full h-[350px] rounded-lg  bg-[#202938]'>
+         className=' w-full h-[350px] rounded-lg  bg-[#202938]'>
            <TransactionChart  />
         </div>
 
          <div style={{
             // background: "var(--background)"
         }}
-         className='md:w-[30%] w-full h-[350px] rounded-lg bg-[#202938]'>
-          <Activity />
+         className='md:w-[30%] w-full h-[350px] rounded-lg bg-[#202938] hidden'>
+          {/* <Activity /> */}
           
         </div>
 

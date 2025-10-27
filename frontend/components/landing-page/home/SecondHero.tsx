@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import AnimateTextWord from '@/components/animations/AnimatedText'
 
 const heroData = [
   { img: '/landing-page/gallery (1).png' },
@@ -38,7 +39,7 @@ const Marquee: React.FC<MarqueeProps> = ({ direction = 'left', speed = 30 }) => 
             key={idx}
             src={item.img}
             alt="gallery"
-            className="w-[300px] h-[200px] object-cover rounded-2xl"
+            className="md:w-[300px] w-1/2 h-[200px] object-cover rounded-2xl"
           />
         ))}
       </motion.div>
@@ -67,29 +68,35 @@ const SecondHero: React.FC = () => {
 
 
       {/* === Overlay Content === */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="uppercase text-4xl md:text-[80px] md:leading-[89px] font-bold forum mb-4">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex 
+      flex-col items-center justify-center text-center px-4">
+        <h1 className="uppercase text-5xl md:text-[80px] lg:text-[120px] lg:leading-[128px] md:leading-[89px] 
+        font-extrabold forum mb-4 railway">
+          <AnimateTextWord type='largeText' align='center'>
+     
           Authentic Food
+                 
+          </AnimateTextWord>
         </h1>
-        <p className="text-base md:text-lg max-w-xl mb-8">
-          Experience the Art of Sushi: Fresh, Authentic, <br />and Exquisite Delights
-        </p>
+        <h1 className="text-base md:text-lg md:max-w-xl mb-8">
+             <AnimateTextWord type='smallText'  align='center'>
+         We bring you a fusion of flavours crafted with passion.From fresh ingredients
+to expertly prepared dishes, every bite is a celebration.
+                    </AnimateTextWord>
+        </h1>
 
         <div className="flex items-center gap-5">
           <Link
             href="#"
-            className="bg-[#700002] px-8 h-12 rounded-lg flex items-center justify-center text-white text-base hover:bg-[#8a0003] transition-all"
+            className="bg-white px-4 md:px-8 h-12 rounded-lg flex uppercase
+             items-center justify-center text-black text-base  transition-all"
           >
             Book Now
           </Link>
 
-          <Link
-            href="#"
-            className="bg-transparent px-8 h-12 rounded-lg flex items-center justify-center text-white text-base border border-white hover:bg-white hover:text-black transition-all"
-          >
-            View Menu
-          </Link>
+   
         </div>
+
       </div>
 
     </div>

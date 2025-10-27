@@ -5,7 +5,7 @@ import TopHeader from '@/components/reuseabale/TopHeader'
 
 const OrderIndex = () => {
   return (
-    <div className='max-h-screen overflow-y-scroll'>
+    <div className='max-h-screen  scrollbar flex flex-col gap-5'>
             <TopHeader  title="Orders" />
       <OrderSummary  />
       <OrdersTable  />

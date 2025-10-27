@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 
 import Heading from "@/components/reuseabale/Heading";
+import AnimateTextWord from "@/components/animations/AnimatedText";
 
 // Dummy testimonial data
 const testimonials = [
@@ -56,13 +57,23 @@ const StarRating = ({ rating }: { rating: number }) => {
 
 const Testimonial = () => {
   return (
-    <div className="flex flex-col items-center min-h-[500px]
-     justify-center gap-10 py-10 overflow-hidden bg-black">
-      {/* Heading */}
-      <div className="md:max-w-[65%] text-center">
-        <Heading title="Testimonials" desc="What Our Visitors Say" />
-      </div>
+    <div className='w-full bg-black min-h-[500px]  flex flex-col
+     gap-10 items-center justify-center py-20 md:px-12 px-3'>
+   
 
+<div className='w-full bg-[#212121]  md:h-[359px] flex flex-col
+  gap-5 items-center md:items-start justify-center p-4'>
+
+  <div>
+    <h1 className="text-white text-[28px] md:text-4xl">
+
+           <AnimateTextWord type="largeText" align="start">
+Reviews from Our Guests
+           </AnimateTextWord>
+    </h1>
+  </div>
+
+ 
       {/* Marquee Container */}
       <div className="relative w-full overflow-hidden">
         {/* Motion Track */}
@@ -79,11 +90,11 @@ const Testimonial = () => {
           {[...testimonials, ...testimonials].map((item, idx) => (
             <div
               key={idx}
-              className="min-w-[300px] max-w-[300px] h-40  border border-[#BFBFBF]
+              className="min-w-[300px] max-w-[300px] h-60  border border-[#BFBFBF]
                shadow-md  p-6 flex flex-col justify-between"
             >
-              {/* Rating */}
-              <StarRating rating={item.rating} />
+          
+          <Quote size={34} color="white" />
 
               {/* Message */}
               <p className="text-[#bfbfbf]  text-sm mb-4 overflow-hidden
@@ -99,6 +110,9 @@ const Testimonial = () => {
           ))}
         </motion.div>
       </div>
+
+        </div>
+
     </div>
   );
 };

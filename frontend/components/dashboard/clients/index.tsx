@@ -6,10 +6,12 @@ import TopHeader from '@/components/reuseabale/TopHeader'
 
 const ClientIndex = () => {
   return (
-    <div className='max-h-screen overflow-y-scroll'>
-            <TopHeader  title="Clients" />
+    <div className='max-h-screen  scrollbar'>
+
+      <TopHeader  title="Customer" />
       <ClientSummary   />
       <ClientTable  />
+
     </div>
   )
 }

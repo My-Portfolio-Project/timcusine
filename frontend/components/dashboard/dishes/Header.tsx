@@ -137,16 +137,26 @@ useEffect(() => {
         {/* Right Side: Add Dish Button */}
         <button
           onClick={() => setShowModal(true)}
-          className="btn bg-[#6159e7] border-none text-white hover:bg-[#4e49c6]"
+          className="btn bg-[#6159e7] border-none text-white hover:bg-[#4e49c6] hidden md:block"
         >
           + Add Dish
         </button>
+
+        {/* mobile button */}
+                          <button 
+            
+          className="btn bg-[#6159e7] border-none text-white hover:bg-[#4e49c6] md:hidden
+           text-[10px] px-2 h-5 rounded-md transition cursor-pointer">
+         + Add Dish
+          </button>
+
       </div>
 
       {/* Modal */}
       <dialog className={`modal ${showModal ? 'modal-open' : ''}`}>
 
         <div className="modal-box bg-[#202938] text-white max-w-[1200px] md:h-[500px] my-2 md:my-5">
+          
           <div className="flex justify-between items-center my-2 md:my-5">
             <h3 className="text-lg font-semibold">Add New Dish</h3>
             <button

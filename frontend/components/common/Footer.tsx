@@ -50,9 +50,11 @@ const footerData = [
 ];
 
 const gallery = [
-  "https://images.unsplash.com/photo-1607083206869-4c81a9db12c7?w=500&auto=format&fit=crop&q=60",
-  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60",
-  "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&auto=format&fit=crop&q=60",
+"/landing-page/gallery (1).png",
+"/landing-page/gallery (2).png",
+"/landing-page/gallery (3).png",
+"/landing-page/gallery (4).png",
+"/landing-page/gallery (5).png",
 ];
 
 const Footer = () => {
@@ -67,17 +69,15 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="w-full flex flex-col bg-black py-20 px-5
+    <footer className="w-full flex flex-col bg-black pt-20 pb-10 px-5 
      md:px-12 gap-10          border-t border-[#BFBFBF]">
       {/* Logo */}
       <div className="w-full flex flex-col gap-3 items-center justify-center mb-6">
         <Link href="/">
           <img src="/landing-page/tims_logo.png" alt="logo" className="h-12" />
         </Link>
-        <p style={{
-          color: "var(--background)"
-        }}
-        className="text-base"> Serving delicious homemade-style 
+        <p 
+        className="text-base text-white"> Serving delicious homemade-style 
     meals for your loved ones.</p>
       </div>
 
@@ -88,13 +88,7 @@ const Footer = () => {
 
           <div className="flex  items-center gap-1 mb-3">
 
-        
-             <div  style={{
-                background: "var(--yellow-color)"
-            }}
-            className='max-w-[30px] w-full h-1 rounded-sm' />
-
-       <h3 className='text-[#a16d57] font-semibold text-2xl'>{footerData[0].heading}</h3>
+      <h3 className='text-white font-semibold text-sm uppercase'> {footerData[0].heading}</h3>
             </div>
           <ul className="space-y-2">
             {footerData[0].links?.map((item, index) => (
@@ -111,21 +105,15 @@ const Footer = () => {
         <div>
 
       <div className="flex  items-center gap-1 mb-3">
-
-        
-             <div  style={{
-                background: "var(--yellow-color)"
-            }}
-            className='max-w-[30px] w-full h-1 rounded-sm' />
-
-      <h3 className='text-[#a16d57] font-semibold text-2xl'>
+      <h3 className='text-white font-semibold text-sm uppercase'>
             {footerData[1].heading}</h3> 
            </div>
+
           <ul className="space-y-3">
             {footerData[1].info?.map((item, index) => (
               <li key={index} className="flex items-center gap-2">
                 {item.icon}
-                <span>{item.title}</span>
+                <span className="text-[#999999] text-base">{item.title}</span>
               </li>
             ))}
           </ul>
@@ -151,15 +139,7 @@ const Footer = () => {
 
           
       <div className="flex  items-center gap-1 mb-3">
-
-        
-             <div  style={{
-                background: "var(--yellow-color)"
-            }}
-            className='max-w-[30px] w-full h-1 rounded-sm' />
-
-      <h3 className='text-[#a16d57] font-semibold text-2xl'>
-         Gallery</h3>
+      <h3 className='text-white font-semibold text-sm uppercase'> Gallery </h3>
 </div>
 
 
@@ -177,6 +157,7 @@ const Footer = () => {
       <div className="text-center text-sm text-gray-500 mt-8 border-t pt-4">
         © {new Date().getFullYear()} Tim’s Store. All Rights Reserved.
       </div>
+
     </footer>
   );
 };

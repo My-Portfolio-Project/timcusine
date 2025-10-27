@@ -72,7 +72,7 @@ const ClientHeader = () => {
         <div>
           <button
             onClick={handleOpen}
-            className="btn bg-[#6159e7] border-none text-white hover:bg-[#4e49c6]"
+            className="btn bg-[#6159e7] border-none text-white hover:bg-[#4e49c6] hidden"
           >
             + Add Client
           </button>
@@ -81,6 +81,7 @@ const ClientHeader = () => {
 
       {/* DaisyUI Modal */}
       <dialog className={`modal ${showClient ? 'modal-open' : ''}`}>
+        
         <div className="modal-box bg-[#202938] text-white max-w-lg">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Add New Client</h3>

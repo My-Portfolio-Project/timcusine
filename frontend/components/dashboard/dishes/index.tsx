@@ -6,7 +6,7 @@ import TopHeader from '@/components/reuseabale/TopHeader'
 
 const DishesIndex = () => {
   return (
-    <div className='max-h-screen '>
+    <div className='max-h-screen overflow-hidden flex flex-col gap-5 '>
               <TopHeader title="Dishes" />
       <DishesSummary  />
       <DishesTable  />

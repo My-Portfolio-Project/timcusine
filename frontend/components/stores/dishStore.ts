@@ -12,8 +12,8 @@ interface DishStore {
   fetchAll: (page?: number, limit?: number) => Promise<void>;
   fetchSingle: (id: string) => Promise<void>;
   createDish: (dish: Partial<DishProps>) => Promise<any>;
-  updateDish: (id: string, dish: Partial<DishProps>) => Promise<void>;
-  deleteDish: (id: string) => Promise<void>;
+  updateDish: (id: string, dish: Partial<DishProps>) => Promise<any>;
+  deleteDish: (id: string) => Promise<any>;
   searchDish: (searchTerm: string) => Promise<any>;
 }
 
@@ -100,6 +100,7 @@ export const useDishStore = create<DishStore>((set, get) => ({
       if (res.ok) {
         await get().fetchAll();
         set({ loading: false });
+           return { message: 'Created successfully', success: true}
       } else throw new Error(data.message || 'Failed to update dish');
     } catch (error: any) {
       console.error(error);
@@ -119,6 +120,7 @@ export const useDishStore = create<DishStore>((set, get) => ({
       if (res.ok) {
         await get().fetchAll();
         set({ loading: false });
+               return { message: 'Created successfully', success: true}
       } else throw new Error(data.message || 'Failed to delete dish');
     } catch (error: any) {
       console.error(error);

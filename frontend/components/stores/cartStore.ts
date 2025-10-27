@@ -16,6 +16,7 @@ interface CartState {
   updateCart: (cartId: string, quantity: number) => Promise<any>;
   removeCart: (cartId: string) => Promise<any>;
   getCartTotal: () => void;
+  clearCarts: () => void;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -191,4 +192,9 @@ addToCart: async (dish) => {
     const total = subtotal; // Add delivery fee, tax, etc. if needed
     set({ subtotal, total });
   },
+
+
+  clearCarts: () => {
+    set({carts: [] , total:0,subtotal:0})
+  }
 }));

@@ -1,5 +1,6 @@
 'use client'
 import { API_URL } from '@/components/hooks/Api';
+import { useCartStore } from '@/components/stores/cartStore';
 import { verify } from 'crypto';
 import { Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
@@ -16,6 +17,8 @@ function CheckoutContent () {
   const sessionId = searchParams.get('session_id')
   const  payment = searchParams.get('payment')
 
+  const {clearCarts} = useCartStore()
+
 useEffect(() => {
   async function verifyPayment() {
     setLoading(true);
@@ -30,7 +33,7 @@ useEffect(() => {
       if (payment === 'PAYSTACK' && reference) queryParams.append('reference', reference);
       if (payment === 'STRIPE' && sessionId) queryParams.append('session_id', sessionId);
 
-      const response = await fetch(`${API_URL}/orders/checkout/success?${queryParams.toString()}`, {
+      const response = await fetch(`${API_URL}/order/checkout/success?${queryParams.toString()}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -42,6 +45,7 @@ useEffect(() => {
       if (data.success || data.message) {
         setSuccess(true);
         toast.success(data.message || 'Payment verified successfully!');
+        clearCarts()
       } else {
         toast.error('Payment verification failed.');
       }
@@ -82,7 +86,7 @@ useEffect(() => {
         )}
 
         <a
-          href="/home"
+          href="/"
           className="mt-6 inline-block bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition"
         >
           {success ? 'View Your Orders' : 'Try Again'}
